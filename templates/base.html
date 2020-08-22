@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Articles</title>
+	<!-- <meta name="viewport" content="width=device-width, inital-scale=1"> -->
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+	<header class="wrapper">
+		<h1><a href="{% url 'home' %}">Passionate Green</a></h1>
+		<nav>
+			<ul>
+			{% if user.is_authenticated %}
+			
+				<li>
+					<form class="logout-link" action="{% url 'accounts:logout' %}" method="post">
+						{% csrf_token %}
+						<button type='submit'>Logout</button>
+					</form>
+				</li>
+
+				<li><a class='highlight' href="{% url 'articles:create' %}">New Article</a></li>
+
+				{% else %}
+
+					<li><a href="{% url 'accounts:login' %}">Login</a></li>
+					<li><a href="{% url 'accounts:signup' %}">SignUp</a></li>
+			{% endif %}
+
+			</ul>
+		</nav>
+	</header>
+	
+	<div class="wrapper">
+		{% block content%}
+
+		{% endblock %}
+	</div>
+
+</body>
+</html>
